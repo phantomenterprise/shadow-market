@@ -141,6 +141,37 @@ Built with:
 - Lucide React for icons
 - Mobile-first responsive design
 
+## ▶️ Run from GitHub
+
+This repository currently contains the game UI source files (`src/App.jsx` and `src/StreetTrader.jsx`). To run it from GitHub, use one of the options below.
+
+### Option 1: GitHub Codespaces (recommended)
+1. Open the repo on GitHub.
+2. Click **Code → Codespaces → Create codespace**.
+3. In the Codespaces terminal, create a React app scaffold:
+   ```bash
+   npm create vite@latest shadow-market -- --template react
+   cd shadow-market
+   npm install
+   ```
+4. Copy `src/App.jsx` and `src/StreetTrader.jsx` from this repository into the new Vite project.
+5. Install dependencies and run:
+   ```bash
+   npm install lucide-react
+   npm run dev
+   ```
+6. Use the forwarded URL provided by Codespaces to open the app in your browser.
+
+### Option 2: GitHub Pages (static deploy)
+1. Create a React app scaffold (Vite recommended).
+2. Replace the generated `src/App.jsx` and add `src/StreetTrader.jsx` from this repo.
+3. Add a GitHub Actions workflow that runs:
+   ```bash
+   npm install
+   npm run build
+   ```
+4. Configure GitHub Pages to deploy the `dist/` output.
+
 ## 🎓 Learning Outcomes
 
 Playing Shadow Market helps develop:
