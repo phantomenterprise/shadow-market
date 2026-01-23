@@ -101,32 +101,36 @@ function App() {
         locationName={currentLocationName}
       />
 
-      <div style={{ padding: '0 1rem', maxWidth: '600px', margin: '0 auto' }}>
-        <Locations currentId={location} onTravel={travel} />
+      <div className="game-container">
+        <div className="game-sidebar">
+          <Locations currentId={location} onTravel={travel} />
 
-        <Market
-          products={activeProducts}
-          prices={prices}
-          inventory={inventory}
-          cash={cash}
-          onBuy={buy}
-          onSell={sell}
-          pocket={pocket}
-        />
+          <div className="card" style={{ marginTop: '1rem', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem' }}>
+            <button className="btn btn-outline" style={{ flexDirection: 'column', gap: '4px', fontSize: '0.8rem' }} onClick={() => setActiveModal('bank')}>
+              <Landmark size={20} /> Bank
+            </button>
+            <button className="btn btn-outline" style={{ flexDirection: 'column', gap: '4px', fontSize: '0.8rem' }} onClick={() => setActiveModal('shark')}>
+              <Skull size={20} /> Shark
+            </button>
+            <button className="btn btn-outline" style={{ flexDirection: 'column', gap: '4px', fontSize: '0.8rem' }} onClick={() => setActiveModal('store')}>
+              <ShoppingBag size={20} /> Store
+            </button>
+          </div>
 
-        <div className="card" style={{ marginTop: '1rem', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem' }}>
-          <button className="btn btn-outline" style={{ flexDirection: 'column', gap: '4px', fontSize: '0.8rem' }} onClick={() => setActiveModal('bank')}>
-            <Landmark size={20} /> Bank
-          </button>
-          <button className="btn btn-outline" style={{ flexDirection: 'column', gap: '4px', fontSize: '0.8rem' }} onClick={() => setActiveModal('shark')}>
-            <Skull size={20} /> Shark
-          </button>
-          <button className="btn btn-outline" style={{ flexDirection: 'column', gap: '4px', fontSize: '0.8rem' }} onClick={() => setActiveModal('store')}>
-            <ShoppingBag size={20} /> Store
-          </button>
+          <Logs logs={logs} />
         </div>
 
-        <Logs logs={logs} />
+        <div className="game-main">
+          <Market
+            products={activeProducts}
+            prices={prices}
+            inventory={inventory}
+            cash={cash}
+            onBuy={buy}
+            onSell={sell}
+            pocket={pocket}
+          />
+        </div>
       </div>
 
       {activeModal === 'bank' && (

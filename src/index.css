@@ -16,7 +16,8 @@
 }
 
 [data-theme='eighties'] {
-  --font-main: 'Share Tech Mono', monospace; /* More readable than pixel font for body */
+  --font-main: 'Share Tech Mono', monospace;
+  /* More readable than pixel font for body */
   --font-header: 'Press Start 2P', cursive;
   --bg-color: #1a0b2e;
   --text-color: #e0e0e0;
@@ -101,17 +102,65 @@ body {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--border-color);
   border-radius: 4px;
 }
 
+/* Desktop Layout */
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.game-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.game-main {
+  margin-top: 1rem;
+}
+
+@media (min-width: 900px) {
+  .game-container {
+    grid-template-columns: 380px 1fr;
+    gap: 2rem;
+    padding: 1.5rem;
+  }
+
+  .game-main {
+    margin-top: 0;
+  }
+
+  .game-sidebar {
+    position: sticky;
+    top: 80px;
+    align-self: start;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
+}
+
 /* Mobile Tweaks */
 @media (max-width: 600px) {
-  .desktop-only { display: none; }
+  .desktop-only {
+    display: none;
+  }
+
+  .game-container {
+    padding: 0.5rem;
+  }
 }
 
 .sticky-top {
