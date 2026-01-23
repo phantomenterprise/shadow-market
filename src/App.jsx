@@ -32,7 +32,7 @@ function App() {
       }}>
         <div>
           <h1 style={{ fontFamily: 'var(--font-header)', fontSize: '2.5rem', marginBottom: '0.5rem', color: 'var(--primary)' }}>
-            STREET TRADER
+            SHADOW MARKET
           </h1>
           <p style={{ opacity: 0.7 }}>Buy Low. Sell High. Don't Get Caught.</p>
         </div>
