@@ -1,6 +1,6 @@
 import {
-    Disc, CassetteTape, Radio, Gamepad2, Film, Watch,
-    Smartphone, Cpu, Wifi, Battery, Server, MapPin
+    Pill, Leaf, Zap, Ghost, Snowflake, Skull, Gem, FlaskConical, Syringe, TestTube,
+    Cannabis // Check if Cannabis exists, implies Leaf is safer. Stick to Leaf.
 } from 'lucide-react';
 
 export const THEMES = {
@@ -19,20 +19,20 @@ export const LOCATIONS = [
 
 export const PRODUCTS = {
     [THEMES.EIGHTIES]: [
-        { id: 'boots', name: 'Bootleg Tapes', min: 10, max: 60, icon: CassetteTape },
-        { id: 'cigs', name: 'Imported Cigs', min: 40, max: 150, icon: Disc },
-        { id: 'watches', name: 'Fake Rolexes', min: 100, max: 400, icon: Watch },
-        { id: 'radar', name: 'Radar Detectors', min: 300, max: 900, icon: Radio },
-        { id: 'arcades', name: 'PCB Boards', min: 1500, max: 4500, icon: Gamepad2 },
-        { id: 'vcr', name: 'Modded VCRs', min: 5000, max: 12000, icon: Film },
+        { id: 'ludes', name: 'Ludes', min: 10, max: 60, icon: Pill },
+        { id: 'weed', name: 'Weed', min: 40, max: 150, icon: Leaf },
+        { id: 'shrooms', name: 'Magic Mushrooms', min: 100, max: 400, icon: Ghost },
+        { id: 'speed', name: 'Speed', min: 300, max: 900, icon: Zap },
+        { id: 'crack', name: 'Crack', min: 1500, max: 4500, icon: TestTube },
+        { id: 'coke', name: 'Cocaine', min: 5000, max: 12000, icon: Snowflake },
     ],
     [THEMES.NOW]: [
-        { id: 'vapes', name: 'Mega Vapes', min: 15, max: 80, icon: Battery },
-        { id: 'ids', name: 'Fake IDs', min: 100, max: 300, icon: MapPin },
-        { id: 'phones', name: 'Burner Phones', min: 200, max: 600, icon: Smartphone },
-        { id: 'crypto', name: 'Cold Wallets', min: 500, max: 1500, icon: Wifi },
-        { id: 'gpus', name: 'Mining GPUs', min: 2000, max: 5000, icon: Cpu },
-        { id: 'ai', name: 'AI Models', min: 10000, max: 30000, icon: Server },
+        { id: 'fent', name: 'Fentanyl', min: 15, max: 80, icon: Skull },
+        { id: 'spice', name: 'Spice / K2', min: 50, max: 180, icon: Leaf },
+        { id: 'molly', name: 'Molly', min: 100, max: 300, icon: Gem },
+        { id: 'ketamine', name: 'Ketamine', min: 500, max: 1500, icon: FlaskConical },
+        { id: 'meth', name: 'Crystal Meth', min: 2000, max: 5000, icon: Zap },
+        { id: 'heroin', name: 'Pure Heroin', min: 10000, max: 30000, icon: Syringe },
     ]
 };
 
