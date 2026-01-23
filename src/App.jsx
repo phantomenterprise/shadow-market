@@ -154,6 +154,17 @@ function App() {
           onClose={() => setActiveModal(null)}
         />
       )}
+
+      <footer style={{
+        textAlign: 'center',
+        padding: '2rem 1rem',
+        marginTop: '3rem',
+        opacity: 0.5,
+        fontSize: '0.85rem',
+        borderTop: '1px solid var(--border-color)'
+      }}>
+        © {new Date().getFullYear()} Phantom Unlimited
+      </footer>
     </div>
   );
 }
