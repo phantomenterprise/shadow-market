@@ -117,7 +117,9 @@ function App() {
             </button>
           </div>
 
-          <Logs logs={logs} />
+          <div className="logs-desktop">
+            <Logs logs={logs} />
+          </div>
         </div>
 
         <div className="game-main">
@@ -131,6 +133,10 @@ function App() {
             pocket={pocket}
           />
         </div>
+      </div>
+
+      <div className="logs-mobile">
+        <Logs logs={logs} />
       </div>
 
       {activeModal === 'bank' && (

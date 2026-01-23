@@ -150,16 +150,35 @@ body {
     max-height: calc(100vh - 100px);
     overflow-y: auto;
   }
+
+  .logs-mobile {
+    display: none;
+  }
+
+  .logs-desktop {
+    display: block;
+  }
 }
 
 /* Mobile Tweaks */
-@media (max-width: 600px) {
+@media (max-width: 899px) {
   .desktop-only {
     display: none;
   }
 
   .game-container {
     padding: 0.5rem;
+  }
+
+  .logs-desktop {
+    display: none;
+  }
+
+  .logs-mobile {
+    display: block;
+    padding: 0 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 }
 
