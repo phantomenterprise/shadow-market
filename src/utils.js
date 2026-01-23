@@ -26,9 +26,11 @@ export const generatePrices = (products) => {
 
 export const rollEvent = () => {
     const r = Math.random();
-    if (r < 0.15) return 'cops';
-    if (r < 0.25) return 'mugged';
-    if (r < 0.35) return 'find';
-    // Market events handled separately usually, but we can return general events here
+    if (r < 0.08) return 'cops';      // 8%
+    if (r < 0.14) return 'mugged';    // 6%
+    if (r < 0.22) return 'find';      // 8%
+    if (r < 0.28) return 'dealer';    // 6%
+    if (r < 0.32) return 'tip';       // 4%
+    if (r < 0.40) return 'market';    // 8% - New: Price spike/crash
     return null;
 };

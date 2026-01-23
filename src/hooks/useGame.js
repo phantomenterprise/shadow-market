@@ -101,14 +101,12 @@ export const useGame = () => {
             if (yourPower >= muggerPower) {
                 addLog(`😠 Muggers tried to jump you! You fought back with ${weapon.name}!`);
             } else if (yourPower > 0) {
-                // Partial success - lose less cash
                 const lost = Math.floor(cash * 0.1);
                 if (lost > 0) {
                     setCash(c => c - lost);
                     addLog(`😠 Muggers jumped you! Lost $${lost} but fought back.`);
                 }
             } else {
-                // No weapon - lose more
                 const lost = Math.floor(cash * 0.2);
                 if (lost > 0) {
                     setCash(c => c - lost);
@@ -119,6 +117,26 @@ export const useGame = () => {
             const amount = rand(500, 2000);
             setCash(c => c + amount);
             addLog(`💰 Found a stash! +$${amount}.`);
+        } else if (evt === 'dealer') {
+            const randomProd = activeProducts[rand(0, activeProducts.length - 1)];
+            const discountPrice = Math.floor(prices[randomProd.id] * 0.4);
+            setPrices(prev => ({ ...prev, [randomProd.id]: discountPrice }));
+            addLog(`🤝 A local dealer is clearing out ${randomProd.name}! Prices are dirt cheap.`);
+        } else if (evt === 'tip') {
+            const randomProd = activeProducts[rand(0, activeProducts.length - 1)];
+            addLog(`💡 TIP: Rumor has it ${randomProd.name} prices will skyrocket soon.`);
+        } else if (evt === 'market') {
+            const randomProd = activeProducts[rand(0, activeProducts.length - 1)];
+            const isSpike = Math.random() > 0.5;
+            if (isSpike) {
+                const newPrice = Math.floor(prices[randomProd.id] * 4);
+                setPrices(prev => ({ ...prev, [randomProd.id]: newPrice }));
+                addLog(`📈 MARKET: ${randomProd.name} prices are through the roof!`);
+            } else {
+                const newPrice = Math.max(1, Math.floor(prices[randomProd.id] * 0.2));
+                setPrices(prev => ({ ...prev, [randomProd.id]: newPrice }));
+                addLog(`📉 MARKET: The market for ${randomProd.name} has crashed!`);
+            }
         } else {
             addLog(`You traveled to ${LOCATIONS.find(l => l.id === newLocId).name}.`);
         }
