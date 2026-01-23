@@ -7,7 +7,7 @@ const ModalOverlay = ({ children, onClose }) => (
         background: 'rgba(0,0,0,0.8)', zIndex: 100,
         display: 'flex', alignItems: 'center', justifyContent: 'center'
     }} onClick={onClose}>
-        <div className="card" onClick={e => e.stopPropagation()} style={{ width: '90%', maxWidth: '400px' }}>
+        <div className="card" onClick={e => e.stopPropagation()} style={{ width: '90%', maxWidth: '400px', maxHeight: '90vh', overflowY: 'auto' }}>
             {children}
         </div>
     </div>
@@ -72,24 +72,59 @@ export const SharkModal = ({ cash, debt, onPay, onBorrow, onClose }) => {
     );
 };
 
-export const StoreModal = ({ cash, pocket, onUpgrade, onClose }) => {
+export const StoreModal = ({ cash, pocket, weapon, weapons, onUpgrade, onBuyWeapon, onClose }) => {
     const upgradeCost = pocket * 100;
     return (
         <ModalOverlay onClose={onClose}>
-            <h3>Surplus Store</h3>
-            <p>Current Pocket: {pocket} slots</p>
+            <h3>Black Market Store</h3>
 
+            {/* Pocket Upgrade */}
             <div style={{ marginBottom: '1rem', padding: '1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
-                <h4>Trenchcoat Upgrade (+10 slots)</h4>
-                <p style={{ color: 'var(--accent)' }}>Cost: {formatMoney(upgradeCost)}</p>
+                <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.9rem' }}>Trenchcoat Upgrade (+10 slots)</h4>
+                <p style={{ color: 'var(--accent)', margin: '0 0 0.5rem 0' }}>Current: {pocket} | Cost: {formatMoney(upgradeCost)}</p>
                 <button
                     className="btn"
                     disabled={cash < upgradeCost}
                     onClick={() => { onUpgrade(); onClose(); }}
-                    style={{ width: '100%' }}
+                    style={{ width: '100%', fontSize: '0.85rem', padding: '0.5rem' }}
                 >
                     Buy Upgrade
                 </button>
+            </div>
+
+            {/* Weapons */}
+            <div style={{ marginBottom: '1rem' }}>
+                <h4 style={{ margin: '0 0 0.5rem 0' }}>Weapons</h4>
+                {weapon && (
+                    <div style={{ padding: '0.5rem', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '4px', marginBottom: '0.5rem', fontSize: '0.85rem' }}>
+                        Current: <strong>{weapon.name}</strong> (Power: {weapon.power})
+                    </div>
+                )}
+                <div style={{ maxHeight: '200px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    {weapons.map(w => (
+                        <div key={w.id} style={{
+                            padding: '0.75rem',
+                            background: 'rgba(255,255,255,0.05)',
+                            borderRadius: '8px',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
+                        }}>
+                            <div style={{ flex: 1 }}>
+                                <div style={{ fontWeight: 'bold', fontSize: '0.9rem' }}>{w.name}</div>
+                                <div style={{ fontSize: '0.75rem', opacity: 0.7 }}>Power: {w.power} | {formatMoney(w.cost)}</div>
+                            </div>
+                            <button
+                                className="btn"
+                                disabled={cash < w.cost || (weapon && weapon.id === w.id)}
+                                onClick={() => { onBuyWeapon(w); onClose(); }}
+                                style={{ fontSize: '0.75rem', padding: '0.4rem 0.8rem' }}
+                            >
+                                {weapon && weapon.id === w.id ? 'Owned' : 'Buy'}
+                            </button>
+                        </div>
+                    ))}
+                </div>
             </div>
 
             <button onClick={onClose} style={{ width: '100%', marginTop: '1rem', background: 'transparent', border: 'none', color: '#999' }}>Cancel</button>

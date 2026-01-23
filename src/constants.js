@@ -36,6 +36,24 @@ export const PRODUCTS = {
     ]
 };
 
+export const WEAPONS = {
+    [THEMES.EIGHTIES]: [
+        { id: 'knife', name: 'Switchblade', power: 10, cost: 200, icon: Zap },
+        { id: 'bat', name: 'Baseball Bat', power: 20, cost: 500, icon: Zap },
+        { id: 'pistol', name: '.38 Special', power: 40, cost: 1500, icon: Zap },
+        { id: 'shotgun', name: 'Sawed-Off', power: 60, cost: 3500, icon: Zap },
+        { id: 'uzi', name: 'Uzi 9mm', power: 80, cost: 8000, icon: Zap },
+    ],
+    [THEMES.NOW]: [
+        { id: 'taser', name: 'Taser', power: 15, cost: 300, icon: Zap },
+        { id: 'knife', name: 'Tactical Knife', power: 25, cost: 600, icon: Zap },
+        { id: 'glock', name: 'Glock 19', power: 45, cost: 2000, icon: Zap },
+        { id: 'ar15', name: 'AR-15', power: 70, cost: 5000, icon: Zap },
+        { id: 'ak47', name: 'AK-47', power: 90, cost: 12000, icon: Zap },
+    ]
+};
+
+
 export const EVENTS = [
     { id: 'cops', text: 'Police Raid! You ran but dropped some product.', type: 'bad' },
     { id: 'find', text: 'You found a stash in a dumpster!', type: 'good' },

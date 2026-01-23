@@ -11,8 +11,8 @@ import { Landmark, Skull, ShoppingBag } from 'lucide-react';
 
 function App() {
   const {
-    gameState, theme, day, maxDays, location, cash, bank, debt, pocket, inventory, prices, logs, score, activeProducts,
-    initGame, travel, buy, sell, deposit, withdraw, payDebt, borrow, upgradePocket, setGameState
+    gameState, theme, day, maxDays, location, cash, bank, debt, pocket, inventory, prices, logs, score, weapon, activeProducts, activeWeapons,
+    initGame, travel, buy, sell, deposit, withdraw, payDebt, borrow, upgradePocket, buyWeapon, setGameState
   } = useGame();
 
   const [activeModal, setActiveModal] = useState(null); // 'bank', 'shark', 'store'
@@ -98,6 +98,7 @@ function App() {
         cash={cash}
         bank={bank}
         debt={debt}
+        weapon={weapon}
         locationName={currentLocationName}
       />
 
@@ -156,7 +157,10 @@ function App() {
       {activeModal === 'store' && (
         <StoreModal
           cash={cash} pocket={pocket}
+          weapon={weapon}
+          weapons={activeWeapons}
           onUpgrade={upgradePocket}
+          onBuyWeapon={buyWeapon}
           onClose={() => setActiveModal(null)}
         />
       )}

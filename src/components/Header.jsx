@@ -1,8 +1,8 @@
 import React from 'react';
-import { Calendar, Wallet, Landmark, Skull } from 'lucide-react';
+import { Calendar, Wallet, Landmark, Skull, Zap } from 'lucide-react';
 import { formatMoney } from '../utils';
 
-export default function Header({ day, maxDays, cash, bank, debt, health = 100, locationName }) {
+export default function Header({ day, maxDays, cash, bank, debt, weapon, locationName }) {
     return (
         <header className="sticky-top">
             <div className="flex justify-between items-center mb-2">
@@ -28,10 +28,10 @@ export default function Header({ day, maxDays, cash, bank, debt, health = 100, l
                     <span style={{ color: 'var(--danger)' }}>{formatMoney(debt)}</span>
                 </div>
                 <div className="flex flex-col items-center">
-                    Health
-                    <div style={{ width: '100%', height: '4px', background: '#333', marginTop: '4px' }}>
-                        <div style={{ width: `${health}%`, height: '100%', background: 'var(--primary)' }}></div>
-                    </div>
+                    <Zap size={16} color={weapon ? 'var(--accent)' : '#666'} />
+                    <span style={{ color: weapon ? 'var(--accent)' : '#666' }}>
+                        {weapon ? weapon.power : 0}
+                    </span>
                 </div>
             </div>
         </header>

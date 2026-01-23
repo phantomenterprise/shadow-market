@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { LOCATIONS, PRODUCTS, STARTING_CASH, STARTING_DEBT, STARTING_POCKET } from '../constants';
+import { LOCATIONS, PRODUCTS, WEAPONS, STARTING_CASH, STARTING_DEBT, STARTING_POCKET } from '../constants';
 import { rand, generatePrices, rollEvent } from '../utils';
 
 export const useGame = () => {
@@ -17,8 +17,10 @@ export const useGame = () => {
     const [prices, setPrices] = useState({});
     const [logs, setLogs] = useState([]);
     const [score, setScore] = useState(0);
+    const [weapon, setWeapon] = useState(null);
 
     const activeProducts = PRODUCTS[theme];
+    const activeWeapons = WEAPONS[theme];
 
     const addLog = (msg) => {
         setLogs(prev => [msg, ...prev].slice(0, 50));
@@ -34,6 +36,7 @@ export const useGame = () => {
         setPocket(STARTING_POCKET);
         setInventory(PRODUCTS[selectedTheme].reduce((acc, p) => ({ ...acc, [p.id]: 0 }), {}));
         setLocation(LOCATIONS[0].id);
+        setWeapon(null);
         setLogs(['Welcome to the streets. Good luck.']);
 
         // Initial prices
@@ -61,11 +64,25 @@ export const useGame = () => {
         // Random Events
         const evt = rollEvent();
         if (evt === 'cops') {
-            const runSuccess = Math.random() > 0.4; // 60% chance to fail running? Make it fair. 50/50
-            if (Math.random() > 0.5) {
-                addLog("👮 Police raid! You managed to escape.");
+            // Police raid - can fight back with weapon
+            const policePower = rand(40, 80);
+            const yourPower = weapon ? weapon.power : 0;
+
+            if (yourPower >= policePower) {
+                addLog(`👮 Police raid! You fought back with ${weapon.name} and escaped!`);
+            } else if (yourPower > 0) {
+                // Partial success - lose less
+                const items = Object.keys(inventory).filter(k => inventory[k] > 0);
+                if (items.length > 0) {
+                    const itemToLose = items[rand(0, items.length - 1)];
+                    const lostAmount = Math.ceil(inventory[itemToLose] * 0.25);
+                    setInventory(prev => ({ ...prev, [itemToLose]: prev[itemToLose] - lostAmount }));
+                    addLog(`👮 Police raid! You fought back but lost ${lostAmount} ${itemToLose}.`);
+                } else {
+                    addLog("👮 Police raid! You fought them off.");
+                }
             } else {
-                // Lose random product
+                // No weapon - lose product
                 const items = Object.keys(inventory).filter(k => inventory[k] > 0);
                 if (items.length > 0) {
                     const itemToLose = items[rand(0, items.length - 1)];
@@ -77,10 +94,26 @@ export const useGame = () => {
                 }
             }
         } else if (evt === 'mugged') {
-            const lost = Math.floor(cash * 0.2); // Lose 20%
-            if (lost > 0) {
-                setCash(c => c - lost);
-                addLog(`😠 Mugged! They took $${lost}.`);
+            // Muggers - can fight back with weapon
+            const muggerPower = rand(15, 35);
+            const yourPower = weapon ? weapon.power : 0;
+
+            if (yourPower >= muggerPower) {
+                addLog(`😠 Muggers tried to jump you! You fought back with ${weapon.name}!`);
+            } else if (yourPower > 0) {
+                // Partial success - lose less cash
+                const lost = Math.floor(cash * 0.1);
+                if (lost > 0) {
+                    setCash(c => c - lost);
+                    addLog(`😠 Muggers jumped you! Lost $${lost} but fought back.`);
+                }
+            } else {
+                // No weapon - lose more
+                const lost = Math.floor(cash * 0.2);
+                if (lost > 0) {
+                    setCash(c => c - lost);
+                    addLog(`😠 Mugged! They took $${lost}.`);
+                }
             }
         } else if (evt === 'find') {
             const amount = rand(500, 2000);
@@ -146,6 +179,14 @@ export const useGame = () => {
         }
     }
 
+    const buyWeapon = (weaponData) => {
+        if (cash >= weaponData.cost) {
+            setCash(c => c - weaponData.cost);
+            setWeapon(weaponData);
+            addLog(`🔫 Purchased ${weaponData.name} (Power: ${weaponData.power})`);
+        }
+    }
+
     const endGame = () => {
         const finalScore = cash + bank - debt;
         setScore(finalScore);
@@ -166,7 +207,9 @@ export const useGame = () => {
         prices,
         logs,
         score,
+        weapon,
         activeProducts,
+        activeWeapons,
         // Actions
         initGame,
         travel,
@@ -177,6 +220,7 @@ export const useGame = () => {
         payDebt,
         borrow,
         upgradePocket,
+        buyWeapon,
         setGameState, // for restarts
     };
 };
